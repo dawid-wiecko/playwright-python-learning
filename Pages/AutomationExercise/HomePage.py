@@ -18,9 +18,10 @@ def dismiss_cookies_popup(page: Page):
 
     button_confirm_selected_options = page.get_by_role("button", name="Potwierdź wybrane opcje")
     expect(button_confirm_selected_options).to_be_visible()
-    elements =  page.locator("//input[contains(@id, 'fc-preference-slider-purpose')]/..").all()
+    elements = page.locator("//input[contains(@id, 'fc-preference-slider-purpose')]/..").all()
     for el in elements:
-        expect(el).to_be_visible()
+        expect(el).to_be_checked()
         el.click()
+        expect(el).not_to_be_checked()
     button_confirm_selected_options.click()
-
+    expect(button_confirm_selected_options).not_to_be_visible()
